@@ -1,0 +1,271 @@
+.checkoutMain {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 7fr 3fr;
+  align-items: flex-start;
+}
+
+.cartBox {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  align-items: flex-start;
+  gap: 2rem;
+}
+.cartBox sub{
+  display: none;
+}
+
+.cartBox header,
+.checkoutBox header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid lightgray;
+}
+
+.cartBox header strong {
+  font-size: 1.5rem;
+}
+
+.cartBox header legend {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.topLi span {
+  color: rgb(124, 124, 124);
+  font-size: 1.1rem;
+  /* font-weight: 600; */
+  font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+.topLi span:nth-child(2),
+.topLi span:nth-child(3),
+.topLi span:nth-child(4) {
+  margin: auto;
+}
+
+.items li nav,
+.items li h5 {
+  margin: auto;
+  cursor: pointer;
+}
+
+.items li h5 {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.items li {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr;
+  align-items: center;
+}
+
+.items li article {
+  display: flex;
+  gap: 1.3rem;
+}
+
+.items li img {
+  max-width: 120px;
+  min-width: 120px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.items li small {
+  -webkit-line-clamp: 2;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+}
+
+.items li small:hover {
+  border-bottom: 1px solid black;
+}
+
+.items li p {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.items li p i {
+  cursor: pointer;
+  color: tomato;
+}
+
+.items li nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.items li nav input{
+  width: 60px;
+  border-radius: 40px;
+  height: 30px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  border: 1px solid darkgray;
+}
+.items li nav input::-webkit-inner-spin-button{
+  display: none;
+}
+
+.items li button {
+  width: 30px;
+  height: 30px;
+  background: white;
+  cursor: pointer;
+  color: black;
+  border-radius: 50%;
+  border: 1px solid darkgray;
+}
+
+.checkoutBox,
+.locationBox,
+.locationBox div {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkoutBox {
+  padding: 20px;
+  gap: 2rem 0;
+  background: whitesmoke;
+}
+
+.checkout {
+  background: var(--theme);
+  padding: 10px;
+  color: white;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.locationBox div {
+  gap: 0.5rem;
+}
+
+.locationBox div span {
+  display: flex;
+  align-items: center;
+}
+
+.locationBox select {
+  padding: 10px;
+}
+
+.locationBox small {
+  margin: 1rem 0;
+  background: salmon;
+  padding: 5px;
+  border-radius: 5px;
+  align-items: center;
+  gap: 0.3rem;
+  color: white;
+  display: flex;
+  float: left;
+}
+.locationBox small p{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.locationBox small strong{
+  border-bottom: 2px solid white;
+}
+
+.totalBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.totalBox p {
+  display: flex;
+  flex-direction: column;
+}
+
+.totalBox p span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.totalBox p strong {
+  font-size: 1.3rem;
+}
+
+.totalBox hr {
+  width: 100%;
+  border-top: 2px solid darkgray;
+}
+
+@media all and (max-width:1100px){
+  .checkoutMain{
+    display: flex;
+    flex-direction: column;
+  }
+  .cartBox, .checkoutBox{
+    width: 100%;
+  }
+  .checkoutBox{
+    width: calc(100% - 40px);
+  } 
+}
+
+@media all and (max-width:750px){
+  .cartBox sub{
+    display: flex;
+  }
+  .items .topLi{
+    display: none;
+  }
+  .items li p{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .items li img {
+    width: 80px;
+    height: 80px;
+  }
+  .items li{
+    grid-template-columns: 1fr;
+    grid-template-columns: 0.1fr 1fr;
+    border-bottom: 1px solid darkgray;
+    padding: 20px 0;
+  }
+}
+@media all and (max-width:500px){
+  .items li article {
+    display: flex;
+    gap: 0.2rem;
+  }
+}
+@media all and (max-width:300px){
+  .items li img {
+    width: 50px;
+    height: 50px;
+  }
+}

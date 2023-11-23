@@ -1,0 +1,119 @@
+.wrapper{
+ min-height: 94vh; 
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: space-between;
+}
+.wrapper img{
+  width: 200px;
+}
+
+.formBox{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.formBox header{
+  display: flex;
+  gap: 2rem;
+  font-size: 1.3rem;
+  align-items: center;
+}
+.formBox header legend{
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.formBox header legend sub{
+  display: block;
+  height: 4px;
+  transition: 0.4s ease;
+  border-radius: 5px;
+  background: var(--theme);
+}
+
+.formBox form{
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid darkgray;
+}
+.formBox div{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formBox div p,.formBox div input, .formBox div select{
+  background: var(--input);
+  border-radius: 5px;
+  font-size: 1.01rem;
+}
+
+.formBox div p{
+  padding: 0 5px;
+}
+.formBox div input{
+  padding: 10px;
+}
+.formBox small{
+  width: 300px;
+}
+.formBox button{
+  background: var(--theme);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.googleBox{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: auto;
+  background: salmon;
+  margin: 20px auto;
+  background: var(--theme);
+  background: dodgerblue;
+  padding: 4px;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.googleBox i{
+  background: white;
+  padding: 3px;
+  font-size: 2rem;
+  border-radius: 3px;
+}
+
+.wrapper footer{
+  display: flex;
+  gap: 1rem;
+}
+.wrapper footer i{
+  font-size: 1.5rem;
+}
+
+@media all and (max-width:450px){
+  .formBox{
+    width: 90%;
+  }
+  .formBox div p{
+    display: flex;
+    padding: 0;
+  }
+  .formBox div p, .formBox small{
+    width: 100%;
+  }
+  .formBox div input:nth-child(2){
+    width: calc(100% - 20px);
+  }
+}

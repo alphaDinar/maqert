@@ -1,0 +1,49 @@
+.sidebar{
+  width: 18%;
+  padding: 5vh 1%;
+  height: 90vh;
+  background: salmon;
+  /* background: var(--theme); */
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: 0.4s ease;
+  z-index: 1000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.sidebar legend{
+  background: var(--theme);
+  color: white;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: calc(100% - 35px);
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.sidebar.change{
+  left: -20%;
+}
+.sidebar.change legend{
+  left: 100%;
+}
+
+.sidebar nav{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.sidebar nav a{
+  color: white;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}

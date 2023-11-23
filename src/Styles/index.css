@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  scroll-behavior: smooth;
+  font-family:  'Outfit', Arial, sans-serif;
+  /* font-family:  'Poppins', Arial, sans-serif; */
+  /* font-family: 'Raleway', sans-serif; */
+
+}
+:root{
+  --theme : #ff6000;
+  --input : rgb(242, 242, 242);
+}
+
+/* body{
+  width: 80%;
+  padding: 3vh 10%;
+} */
+
+body::-webkit-scrollbar{
+  width: 7px;
+  border-radius: 10px;
+  background: darkgray;
+}
+body::-webkit-scrollbar-thumb{
+  background: var(--theme);
+  border-radius: 10px;
+}
+
+a{
+  color: black;
+}
+li{
+  list-style: none;
+}
+
+h2 sub{
+  height: 3px;
+  width: 100px;
+  display: block;
+  background: black;
+}
+
+.cut{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.categoryBox{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.categoryBox section{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1rem;
+}
+.categoryBox section a{
+  display: block;
+  height: 410px;
+  background-position: center;
+  position: relative;
+  border-radius: 10px;
+  background-size: cover;
+}
+
+.categoryBox section a span{
+  background: rgba(0, 0, 0, 0.541);
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  transition: 0.4s ease;
+}
+
+.categoryBox section a:hover span{
+  bottom: 60px;
+}
+
+.categoryBox .navBox{
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.categoryBox .navBox p{
+  display: flex;
+  padding: 10px 0;
+  gap: 1rem;
+  overflow-x: auto;
+  justify-content: space-between;
+}
+.categoryBox .navBox p::-webkit-scrollbar{
+  display: none;
+}
+.categoryBox .navBox span{
+  border: 1px solid darkgray;
+  padding: 3px 10px;
+  border-radius: 40px;
+  cursor: pointer;
+  display: flex;
+  min-width: max-content;
+  justify-content: center;
+  align-items: center;
+}
+
+@media all and (max-width:1200px){
+  .categoryBox section{
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+@media all and (max-width:920px){
+  .categoryBox section{
+    grid-template-columns: repeat(2,1fr);
+  }
+  .categoryBox section a{
+    display: block;
+    height: 250px;
+  }
+}
+
+@media all and (max-width:650px){
+  body{
+    width: 90%;
+    padding: 2vh 5%;
+  }
+}
+
+@media all and (max-width:500px){
+  .categoryBox .navBox h2{
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media all and (max-width:350px){
+  .categoryBox section{
+    grid-template-columns: 1fr;
+  }
+}

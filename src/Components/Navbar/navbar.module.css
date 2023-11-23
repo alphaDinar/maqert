@@ -1,0 +1,481 @@
+.navbar{
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.navbar .topNav,.navbar .bottomNav{
+  display: none;
+}
+.navbar section{
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.menuTab{
+  cursor: pointer;
+}
+.navbar img{
+  width: 200px;
+}
+.navbar form{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 2px 15px;
+  background: #ecf0f4;
+  border-radius: 10px;
+  position: relative;
+  justify-content: space-between;
+}
+
+.navbar form .categoryMenu{
+  position: absolute;
+  width: calc(100% - 30px);
+  padding: 20px;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  background: white;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.navbar form .categoryMenu sub{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.navbar form .categoryMenu h4{
+  color: orange;
+}
+.navbar form .categoryMenu h3{
+  padding: 0 0 10px 0;
+  border-bottom: 1px dotted darkgray;
+}
+.navbar form .categoryMenu p{
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.navbar form .categoryMenu p span{
+  cursor: pointer;
+}
+
+.navbar form .categorySelect{
+  display: flex;
+  align-items: center;
+  justify-self: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.navbar form input{
+  background: transparent;
+  padding: 10px 10px;
+  font-size: 1.1rem;
+}
+.navbar form button{
+  cursor: pointer;
+}
+.navbar form i{
+  font-size: 1.3rem;
+}
+
+.navbar nav{
+  display: flex;
+  gap: 2rem;
+}
+.navbar .topNav a, .navbar nav a, .navbar nav div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+
+.navbar .topNav a sub, .navbar nav a sub, .navbar nav div sub{
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: var(--theme);
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 0.65rem;
+  justify-content: center;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+ .sideCart{
+  display: flex ;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  height: 90vh;
+  justify-content: space-between;
+  width: calc(380px - 60px);
+  padding: 5vh 30px;
+  right: -380px;
+  top: 0;
+  position: fixed;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background: white;
+  overflow: auto;
+  z-index: 200;
+  transition: 0.4s ease;
+}
+.sideCart::-webkit-scrollbar{
+  display: none;
+}
+
+.sideCart.change{
+  right: 0;
+}
+.sideMenu legend,
+.sideCart legend{
+  position: absolute;
+  top: 5px;
+  background: var(--theme);
+  color: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.sideMenu legend{
+  right: 5px;
+}
+.sideCart legend{
+  left: 5px;
+}
+
+
+.sideCart::-webkit-scrollbar{
+  width: 5px;
+  border-radius: 10px;
+}
+.sideCart::-webkit-scrollbar-thumb{
+  background: var(--theme);
+  border-radius: 10px;
+}
+ .sideCart ul{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+ .sideCart div{
+  gap: 2rem;
+  display: grid;
+  padding: 10px 0;
+  grid-template-columns: 100px 1fr;
+}
+ .sideCart div img{
+  width: 85px;
+  height: 85px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.sideCart div strong{
+  font-size: 1rem;
+  font-weight: 400;
+}
+.sideCart div article{
+  padding: 5px 0;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+}
+ .sideCart div p{
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+ .sideCart div p span{
+  height: 20px;
+  -webkit-line-clamp: 1;
+  align-items: center;
+}
+.sideCart div article footer{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.sideCart div article footer sup{
+  font-size: 0.9rem;
+  width: 22px;
+  height: 22px;
+  border: 1px solid darkgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.sideCartFooter{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+ .sideCart a:nth-last-child(2){
+  background: var(--theme);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.sideCart a:nth-last-child(1){
+  border-bottom: 1px solid black;
+}
+.sideCartFooter p{
+  display: flex;
+  flex-direction: column;
+}
+.sideCartFooter p:nth-child(2){
+  gap: 0.5rem;
+}
+ .sideCart button{
+  padding: 8px 0;
+  font-size: 1.3rem;
+  background: transparent;
+  font-weight: 600;
+  padding: 10px;
+  border: 1px solid darkgray;
+}
+
+.sideMenu{
+  width: 250px;
+  background: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 90vh;
+  padding: 5vh 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 200;
+  left: -350px;
+  transition: 0.4s ease;
+}
+.sideMenu.change{
+  left: 0;
+}
+.sideMenu hr{
+  width: 100%;
+  border-top: 1px dotted darkgray;
+}
+.sideMenu header h2{
+  font-size: 1rem;
+}
+.sideMenu header h1{
+  font-size: 1.5rem;
+}
+.sideMenu p{
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+.sideMenu p span{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.sideMenu p span small{
+  font-size: 1rem;
+}
+
+.sideMenu .mid sup{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sideMenu .mid sup sub{
+  font-size: 0.9rem;
+  border-bottom: 1px solid black;
+}
+.sideMenu .mid span sub{
+  position: absolute;
+  right: 10px;
+}
+
+.sheet{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.187);
+  z-index: 200;
+  transition: 0.4s ease;
+}
+
+.miniNav{
+  display: grid;
+  width: 100%;
+  padding: 0.5vh 0;
+  grid-template-columns: 8fr 2fr;
+  position: relative;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  justify-content: space-between;
+  overflow: auto;
+}
+.miniNav::-webkit-scrollbar{
+  display: none;
+}
+.miniNav nav{
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.miniNav nav a{
+  width: max-content;
+  display: inline-block;
+  word-break: keep-all;
+}
+.miniNav nav span{
+  display: flex;
+  gap: 0.3rem;
+  width: max-content;
+  align-items: center;
+}
+.miniNav nav span i{
+  font-size: 1.2rem;
+}
+.miniNav nav:nth-child(2){
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+@media all and (max-width:1100px){
+  .navbar{
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+@media all and (max-width:800px){
+  .navbar .topNav img,.navbar img{
+    width: 150px;
+  }
+  .navbar .mainNav section{
+    flex-direction: column;
+  }
+  .menuTab{
+    position: fixed;
+    left: 10px;
+    top: 10px;
+  }
+}
+@media all and (max-width:650px){
+  .navbar .topNav{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .navbar .topNav input{
+    width: 200px;
+  }
+  .navbar .topNav section:nth-child(1){
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .menuTab{
+    position: relative;
+  }
+  .navbar{
+    gap: 0;
+  }
+  .navbar nav{
+    display: none;
+  }
+  .navbar form{
+    max-width: 250px;
+  }
+  .navbar form input{
+    width: 100px;
+  }
+  .miniNav{
+    overflow: auto;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+  }
+  .miniNav::-webkit-scrollbar{
+    display: none;
+  }
+  .navbar .mainNav{
+    display: none;
+  }
+
+  .navbar .bottomNav{
+    display: flex;
+    gap: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    justify-content: space-around;
+    z-index: 100;
+    background: white;
+    left: 0;
+  }
+  .navbar .bottomNav a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .navbar .bottomNav a sub{
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--theme);
+    color: white;
+    font-size: 0.7rem;
+    padding: 3px;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+}
+
+@media all and (max-width:400px){
+  .sideCart, .sideMenu{
+    width: 300px;
+    padding: 3vh 15px;
+    height: 94vh;
+  }
+  .sideCart div p{
+    width: 100px;
+  }
+}
+
+@media all and (max-width:300px){
+  .sideCart, .sideMenu{
+    width: 250px;
+  }
+}
