@@ -63,7 +63,9 @@ const Register = () => {
 
   return (
     <section className={styles.wrapper}>
+    <Link to={'/'}>
       <img src={logo} />
+    </Link>
 
       <section className={styles.formBox}>
         <header>

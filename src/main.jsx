@@ -70,6 +70,19 @@ export const useCartTrigger = () => {
   return useContext(CartTriggerContext);
 };
 
+const WishListContext = createContext();
+export const WishListProvider = ({ children }) => {
+  const [wishList, setWishList] = useState([]);
+  return (
+    <WishListContext.Provider value={{ wishList, setWishList }}>
+      {children}
+    </WishListContext.Provider>
+  );
+};
+export const useWishList = () => {
+  return useContext(WishListContext);
+};
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -79,7 +92,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <CartProvider>
             <CartInfoProvider>
               <CartTriggerProvider>
-                <App />
+                <WishListProvider>
+                  <App />
+                </WishListProvider>
               </CartTriggerProvider>
             </CartInfoProvider>
           </CartProvider>

@@ -6,21 +6,21 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 import { EffectFade, Navigation, Pagination } from 'swiper/modules';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 // import { Pagination } from 'swiper/modules';
 import { icon, iconFont } from "../../External/Design";
-import machine from '../../assets/machine.png'
 import { Link, useNavigate } from "react-router-dom";
 import ProductBox from "../../Components/ProductBox/ProductBox";
 import Footer from "../../Components/Footer/Footer";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { fireStoreDB } from "../../Firebase/base";
 import { useCart, useCartInfo, useCartTrigger, useLoader } from "../../main";
-import pixel from '../../assets/pixel.png';
 import sam from '../../assets/ites.jpg';
 import gadget from '../../assets/gadget.jpg'
-import cosmetics from '../../assets/cosmetics.png'
+import FeaturedBox from "../../Components/FeaturedBox/FeaturedBox";
+import { solveRatings } from "../../External/math";
 
 const Home = () => {
   const sample = 'https://res.cloudinary.com/dvnemzw0z/image/upload/v1697224824/iphone-15_g1evtv.jpg';
@@ -30,17 +30,22 @@ const Home = () => {
   const { setLoader } = useLoader();
   const { cart, setCart } = useCart();
   const { cartInfo, setCartInfo } = useCartInfo();
-  const {cartTrigger, setCartTrigger} = useCartTrigger();
+  const { cartTrigger, setCartTrigger } = useCartTrigger();
 
   const [allProducts, setAllProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    getDocs(collection(fireStoreDB, 'Products/'))
+    const productsQuery = query(collection(fireStoreDB, 'Products/'), orderBy('timestamp', 'desc'), limit(30));
+    getDocs(productsQuery)
       .then((res) => {
-        setProducts(res.docs.map((el) => el.data()).slice(0, 10))
-        setAllProducts(res.docs.map((el) => el.data()))
+        if (window.innerWidth < 650) {
+          setProducts(res.docs.map((el) => el.data()).slice(0, 6))
+        } else {
+          setProducts(res.docs.map((el) => el.data()).slice(0, 10))
+        }
+        setAllProducts(res.docs.map((el) => el.data()).slice(0, 50))
         setLoader(false)
       })
       .catch((error) => {
@@ -51,13 +56,25 @@ const Home = () => {
       .then((res) => {
         setCategoryList(res.docs.map((el) => el.data()))
       })
+
+    AOS.init({
+      duration: "1000",
+    })
   }, [])
+
+
+  const headBoxTags = [
+    { iconEl: 'bolt', top: 'Fast Shipping', low: '3 - 5 days' },
+    { iconEl: 'deployed_code_history', top: '30 day Free Returns', low: 'all purchase methods' },
+    { iconEl: 'local_shipping', top: '3 Day Delivery', low: 'Free - spend over GH₵ 80' },
+    { iconEl: 'support_agent', top: 'Expert Customer Service', low: 'Chat or call us' },
+  ]
 
   const addToCart = (product) => {
     const itemObj = {
       pid: product.pid,
       name: product.name,
-      category : product.category,
+      category: product.category,
       media: JSON.parse(product.media)[0].url,
       quantity: 1,
       price: Number(product.price),
@@ -102,10 +119,15 @@ const Home = () => {
         >
           {images.map((el, i) => (
             <SwiperSlide key={i} >
-              <section className={styles.topSlide} style={{backgroundImage : `url(${el})`}}>
+              <section className={styles.topSlide} style={{ backgroundImage: `url(${el})` }}>
                 <Link>
-                  <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</span>
-                  <legend></legend>
+                  <article>
+                    {icon(headBoxTags[i].iconEl)}
+                    <p>
+                      <span>{headBoxTags[i].top}</span>
+                      <small>{headBoxTags[i].low}</small>
+                    </p>
+                  </article>
                 </Link>
               </section>
             </SwiperSlide>
@@ -118,7 +140,6 @@ const Home = () => {
             <strong>Featured Products</strong>
             <small>Discover Our Exclusive Collection: Unveiling the Finest Picks Just for You!.</small>
             <nav>
-
               <span><Link to={'/allProducts'}>All Products</Link> <sub></sub></span>
               <span>Popular Products <sub></sub></span>
               <span>New Arrivals <sub></sub></span>
@@ -130,101 +151,44 @@ const Home = () => {
           <ProductBox props={{ products }} />
         </section>
 
-        <section className={styles.featuredBox}>
-          <Link className={styles.left}>
-            <img src={cosmetics} /> 
+        <FeaturedBox />
 
-            <p>
-              <strong>Cosmetics</strong>
-              <small>Unveil Your Perfect Look</small>
-            </p>
 
-            <legend>
-              {icon('north_east')}
-            </legend>
-          </Link>
-          <section className={styles.right}>
-            <div style={{ background: 'wheat' }}>
-              <span>Save Up To 40% </span>
-              <strong>Active Wear</strong>
-              <Link>Shop Now</Link>
-              <img src={machine} />
-
-            </div>
-            <div style={{ background: 'black', color: 'var(--theme)' }}>
-              <span>Save Up To 40% </span>
-              <strong>Active Wear</strong>
-              <Link style={{ color: 'var(--theme)' }}>Shop Now</Link>
-              <img src={machine} />
-            </div>
-          </section>
-        </section>
-
-        <section className={styles.categoryBox}>
+        <section className={styles.productBox}>
           <header>
-            <h3>Shop Deals By Category</h3>
-            <Link to={'/categories'}>
-              <sub>See All Categories</sub>
-            </Link>
+            <strong>Shop By Category</strong>
+            <small>Discover Our Exclusive Collection: Unveiling the Finest Picks Just for You!.</small>
+            <nav>
+              {categoryList.map((el) => (
+                <span>{el.name} <sub></sub></span>
+              ))}
+            </nav>
           </header>
-          <section className={styles.categories}>
-            {categoryList.slice(0, 10).map((el, i) => (
-              <Link key={i} to={`/products/${el.name}`}>
-                <img src={el.media} />
-                <span className="cut">{el.name}</span>
-              </Link>
+
+          <section className={styles.categoryProducts}>
+            {products.map((el) => (
+              <div>
+                <img src={JSON.parse(el.media)[0].url} />
+                <article>
+                  <small>{el.category}</small>
+                  <h3 className="cut">{el.name}</h3>
+                  <span style={{ fontWeight: 600 }}>GH₵ {el.price.toLocaleString()}</span>
+                  <p>
+                    <legend>
+                      {Array(solveRatings(el.ratings)).fill().map((el) => (
+                        iconFont('fa-solid fa-star', 'orange')
+                      ))}
+                    </legend>
+                    <small>({el.ratings.length})</small>
+                  </p>
+                </article>
+                <nav>
+                  <button>{iconFont('fa-regular fa-heart')}</button>
+                  <button>{icon('add_shopping_cart')}</button>
+                </nav>
+              </div>
             ))}
           </section>
-        </section>
-
-        <section className={styles.galleryBox}>
-          <section className={styles.left}>
-            <img src={sample} />
-          </section>
-          <section className={styles.mid}>
-            <span>Styling inspiration</span>
-            <strong>New Look</strong>
-            <span>The motivaton you need to keep moving</span>
-            <nav>
-              <Link>Shop Men</Link>
-              <Link>Shop Women</Link>
-            </nav>
-          </section>
-          <section className={styles.right}>
-            <img src={sample} />
-          </section>
-        </section>
-
-
-        <section className={styles.serviceBox}>
-          <article>
-            {icon('bolt')}
-            <p>
-              <span>Fast Shipping</span>
-              <small>3 - 5 days</small>
-            </p>
-          </article>
-          <article>
-            {icon('deployed_code_history')}
-            <p>
-              <span>30 day Free Returns</span>
-              <small>all purchase methods</small>
-            </p>
-          </article>
-          <article>
-            {icon('local_shipping')}
-            <p>
-              <span>3 Day Delivery</span>
-              <small>Free - spend over GH₵ 80</small>
-            </p>
-          </article>
-          <article>
-            {icon('support_agent')}
-            <p>
-              <span>Expert Customer Service</span>
-              <small>Chat or call us</small>
-            </p>
-          </article>
         </section>
 
         <section className={styles.offerBox} style={{ display: 'none' }}>

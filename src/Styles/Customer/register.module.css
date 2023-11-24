@@ -4,6 +4,7 @@
  flex-direction: column;
  align-items: center;
  justify-content: space-between;
+ padding: 3vh 0;
 }
 .wrapper img{
   width: 200px;

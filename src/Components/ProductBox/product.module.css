@@ -131,3 +131,22 @@
     display: none;
   }
 }
+@media all and (max-width:400px){
+  .product{
+    gap: 0.2rem;
+  }
+  .product img{
+    height: 100px;
+  }
+  .product button{
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 5px;
+  }
+  .product button span{
+    display: none;
+  }
+  .product button i{
+    font-size: 1.2rem;
+  }
+}

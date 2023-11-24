@@ -2,7 +2,7 @@ import styles from './product.module.css';
 import { icon, iconFont } from '../../External/Design';
 import { Link, useNavigate } from 'react-router-dom';
 import { solveRatings } from '../../External/math';
-import { useCart, useCartInfo, useCartTrigger } from '../../main';
+import { useCart, useCartInfo, useCartTrigger, useWishList } from '../../main';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import AOS from 'aos';
@@ -17,9 +17,8 @@ const ProductBox = ({ props }) => {
   const { cart, setCart } = useCart();
   const { cartInfo, setCartInfo } = useCartInfo();
   const { cartTrigger, setCartTrigger } = useCartTrigger();
-
+  const {wishList, setWishList} = useWishList();
   const [uid, setUid] = useState('');
-  const [wishList, setWishList] = useState([]);
 
 
   useEffect(() => {
@@ -121,7 +120,7 @@ const ProductBox = ({ props }) => {
               </p>
             </article>
           </div>
-          <button onClick={() => { addToCart(product) }}>Add To Cart {icon('add_shopping_cart')}</button>
+          <button onClick={() => { addToCart(product) }}><span style={{color:'white'}}>Add To Cart</span> {icon('add_shopping_cart')}</button>
         </div>
       ))}
 

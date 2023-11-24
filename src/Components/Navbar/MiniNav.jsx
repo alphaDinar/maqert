@@ -19,8 +19,8 @@ const MiniNav = () => {
     <section className={styles.miniNav}>
       <nav>
         <Link to={`/allProducts`}>All</Link>
-        {categoryList.slice(0, 4).map((el) => (
-          <Link to={`/products/${el.name}`}>{el.name}</Link>
+        {categoryList.slice(0, 4).map((el,i) => (
+          <Link key={i} to={`/products/${el.name}`}>{el.name}</Link>
         ))}
         <Link to={`/categories`}><small style={{ color: 'salmon' }}>more...</small></Link>
       </nav>

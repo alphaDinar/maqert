@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth';
 import { fireAuth, fireStoreDB } from '../../Firebase/base';
-import { collection, getDocs } from 'firebase/firestore';
-import { useCart, useCartInfo, useCartTrigger } from '../../main';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { useCart, useCartInfo, useCartTrigger, useWishList } from '../../main';
 
 const Navbar = () => {
   const [searchIn, setSearchIn] = useState('');
@@ -20,6 +20,15 @@ const Navbar = () => {
   const { cart, setCart } = useCart();
   const { cartInfo, setCartInfo } = useCartInfo();
   const { cartTrigger, setCartTrigger } = useCartTrigger();
+  const { wishList, setWishList } = useWishList();
+
+  const sidebarTags = [
+    { label: 'My Account', iconEl: 'person', link: 'account', linkTo: '/account' },
+    { label: 'Track Orders', iconEl: 'local_shipping', link: 'orders', linkTo: '/orders' },
+    { label: 'Orders', iconEl: 'package', link: 'orders', linkTo: '/orders' },
+    { label: 'Address', iconEl: 'location_pin', link: 'address', linkTo: '/' },
+    { label: 'Payment Details', iconEl: 'account_balance_wallet', link: 'payment', linkTo: '/' },
+  ]
 
   const toggleCategoryMenu = () => {
     categoryMenuToggled ? setCategoryMenuToggled(false) : setCategoryMenuToggled(true);
@@ -48,6 +57,10 @@ const Navbar = () => {
     onAuthStateChanged(fireAuth, (user) => {
       if (user) {
         setUser(user.displayName)
+        getDoc(doc(fireStoreDB, 'Customers/' + user.uid))
+          .then((res) => {
+            setWishList(res.data().wishList)
+          })
       }
     })
   }, [cartTrigger])
@@ -147,7 +160,7 @@ const Navbar = () => {
         <Link>
           {icon('favorite')}
           <span>Wishlist</span>
-          <sub>10</sub>
+          <sub>{wishList.length}</sub>
         </Link>
         <div onClick={toggleSideCart}>
           <span>{icon('shopping_cart')}</span>
@@ -191,46 +204,54 @@ const Navbar = () => {
 
       <article className={sideMenuToggled ? `${styles.sideMenu} ${styles.change}` : styles.sideMenu}>
         <legend onClick={toggleSideMenu}>{icon('horizontal_rule')}</legend>
+
         {user ?
-          <>
-            <header>
-              <h2>Hello <sub></sub></h2>
-              <h1>{user}</h1>
-            </header>
-            <hr />
-            <p>
-              <span>
-                {icon('box')} <small>Track Order</small>
-              </span>
-              <span>
-                {icon('help')} <small>My Orders</small>
-              </span>
-            </p>
-          </>
+          <header>
+            <h2>Hello <sub></sub></h2>
+            <h1>{user}</h1>
+          </header>
           :
           <header>
             <h2>Register <sub></sub></h2>
           </header>
         }
         <hr />
-        <p className={styles.mid}>
-          <Link to={'/allProducts'}><sup>Shop By Category <sub>see all</sub></sup></Link>
+        {user ?
+          <p className={styles.mid}>
+            {sidebarTags.map((el, i) => (
+              <Link to={el.linkTo} key={i}>
+                <span>
+                  {icon(el.iconEl)} <small>{el.label}</small> <sub className='material-symbols-outlined'>chevron_right</sub>
+                </span>
+              </Link>
+            ))}
+          </p> :
+          <p className={styles.mid}>
+            <Link to={'/allProducts'}><sup>Shop By Category <sub>see all</sub></sup></Link>
+            {categoryList.slice(0, 7).map((el, i) => (
+              <Link to={`/products/${el.name}`} key={i}>
+                <span>
+                  {icon('box')} <small>{el.name}</small> <sub className='material-symbols-outlined'>chevron_right</sub>
+                </span>
+              </Link>
+            ))}
+          </p>
+        }
 
-          {categoryList.slice(0, 7).map((el, i) => (
-            <Link to={`/products/${el.name}`} key={i}>
+        <hr />
+
+        {user ?
+          <p>
+            <Link>
               <span>
-                {icon('box')} <small>{el.name}</small> <sub className='material-symbols-outlined'>chevron_right</sub>
+                {icon('power_settings_new')} <small>Logout</small> <sub className='material-symbols-outlined'>chevron_right</sub>
               </span>
             </Link>
-          ))}
-        </p>
-        <hr />
-        <p>
-          <span>Home</span>
-          <span>Shop</span>
-        </p>
-        <hr />
-        <span>Preferences</span>
+          </p>
+          :
+          <span>All Products</span>
+        }
+
       </article>
 
       <article className={styles.bottomNav}>
@@ -245,17 +266,23 @@ const Navbar = () => {
         <Link>
           {icon('favorite')}
           <small>Wishlist</small>
-          <sub>10</sub>
+          <sub>{wishList.length}</sub>
         </Link>
         <Link to={'/checkout'}>
           {icon('shopping_cart')}
           <small>Cart</small>
           <sub>{cartInfo.itemCount}</sub>
         </Link>
-        <Link to={'/account'}>
-          {icon('person')}
-          <small>Account</small>
-        </Link>
+        {user ?
+          <Link to={'/account'}>
+            {icon('person')}
+            <span>{user}</span>
+          </Link> :
+          <Link to={'/register'}>
+            {icon('person')}
+            <span>Register</span>
+          </Link>
+        }
       </article>
     </section>
   );

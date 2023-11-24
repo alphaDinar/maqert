@@ -40,8 +40,12 @@ li{
   list-style: none;
 }
 
+h2{
+  font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Raleway', sans-serif;
+}
 h2 sub{
-  height: 3px;
+  /* height: 1px; */
   width: 100px;
   display: block;
   background: black;
