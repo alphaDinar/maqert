@@ -40,6 +40,7 @@ const Navbar = () => {
     sideCartToggled ? setSideCartToggled(false) : setSideCartToggled(true);
   }
 
+
   const changeCategory = (val) => {
     setCategoryMenuChoice(val)
   }
@@ -157,7 +158,7 @@ const Navbar = () => {
             <span>Register</span>
           </Link>
         }
-        <Link>
+        <Link to={'/wishList'}>
           {icon('favorite')}
           <span>Wishlist</span>
           <sub>{wishList.length}</sub>
@@ -263,7 +264,7 @@ const Navbar = () => {
           {icon('store')}
           <small>Shop</small>
         </Link>
-        <Link>
+        <Link to={'/wishList'}>
           {icon('favorite')}
           <small>Wishlist</small>
           <sub>{wishList.length}</sub>

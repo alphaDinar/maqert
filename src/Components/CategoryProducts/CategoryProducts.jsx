@@ -1,7 +1,6 @@
-import styles from './product.module.css';
 import { icon, iconFont } from '../../External/Design';
-import { Link, useNavigate } from 'react-router-dom';
 import { solveRatings } from '../../External/math';
+import styles from '../../Styles/Customer/home.module.css';
 import { useCart, useCartInfo, useCartTrigger, useWishList } from '../../main';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -11,15 +10,14 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { fireAuth, fireStoreDB } from '../../Firebase/base';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
-const ProductBox = ({ props }) => {
-  const navigate = useNavigate();
+const CategoryProducts = ({ props }) => {
+  const { selectedCategory } = props;
   const { products } = props;
   const { cart, setCart } = useCart();
   const { cartInfo, setCartInfo } = useCartInfo();
   const { cartTrigger, setCartTrigger } = useCartTrigger();
   const {wishList, setWishList} = useWishList();
   const [uid, setUid] = useState('');
-
 
   useEffect(() => {
     onAuthStateChanged(fireAuth, (user) => {
@@ -91,53 +89,31 @@ const ProductBox = ({ props }) => {
   }
 
   return (
-    <section className={styles.products}>
-      {products.map((product, i) => (
-        <div key={i} className={styles.product} data-aos="fade-up" data-aos-delay={100 * i}>
-          <img src={JSON.parse(product.media)[0].url} />
-          <div>
-            {
-              wishList.find((el)=> el === product.pid) ? 
-              <sup className={styles.supLeft} onClick={() => { addToWishList(product.pid) }}>{iconFont('fa-solid fa-heart')}</sup> :
-              <sup className={styles.supLeft} onClick={() => { addToWishList(product.pid) }}>{iconFont('fa-regular fa-heart')}</sup>
-            }
-
-            <sup className={styles.supRight} onClick={() => { addToCart(product) }}>
-            <Link to={'/checkout'}>
-              {icon('shopping_cart_checkout')}
-            </Link>
-            </sup>
-
-            <Link to={`/products/${product.category}`} style={{ height: 'auto' }}>
-              <small>
-                {product.category}
-              </small>
-            </Link>
-            <span className='cut' onClick={() => { navigate(`/viewProduct/${product.pid}`) }} style={{ textAlign: 'center' }}>{product.name}</span>
-            <sub>GH₵ {parseInt(product.price).toLocaleString()}</sub>
-            <article>
-              <p>
-                <legend>
-                  {Array(solveRatings(product.ratings)).fill().map((el) => (
-                    iconFont('fa-solid fa-star', 'orange')
-                  ))}
-                </legend>
-                <small>({product.ratings.length})</small>
-              </p>
-            </article>
-          </div>            
-          <button onClick={() => { addToCart(product) }}><span style={{color:'white'}}>Add To Cart</span> {icon('add_shopping_cart')}</button>
+    <section className={styles.categoryProducts}>
+      {products.filter((prod) => prod.category == selectedCategory).map((el) => (
+        <div>
+          <img src={JSON.parse(el.media)[0].url} />
+          <article>
+            <small>{el.category}</small>
+            <h3 className="cut">{el.name}</h3>
+            <span style={{ fontWeight: 600 }}>GH₵ {el.price.toLocaleString()}</span>
+            <p>
+              <legend>
+                {Array(solveRatings(el.ratings)).fill().map((el) => (
+                  iconFont('fa-solid fa-star', 'orange')
+                ))}
+              </legend>
+              <small>({el.ratings.length})</small>
+            </p>
+          </article>
+          <nav>
+            <button onClick={()=>{addToWishList(el)}} style={{cursor:'pointer'}}>{iconFont('fa-regular fa-heart')}</button>
+            <button onClick={()=>{addToCart(el)}} style={{cursor:'pointer'}}>{icon('add_shopping_cart')}</button>
+          </nav>
         </div>
       ))}
-
-
-      {products.length === 0 &&
-        Array(10).fill().map(() => (
-          <Skeleton className={styles.product} height={230}></Skeleton>
-        ))
-      }
     </section>
   );
 }
 
-export default ProductBox;
+export default CategoryProducts;

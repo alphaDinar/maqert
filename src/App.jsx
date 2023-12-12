@@ -16,6 +16,7 @@ import ManagerCategories from './Pages/Manager/Categories';
 import AddCategory from './Pages/Manager/AddCategory';
 import AllProducts from './Pages/Customer/AllProducts';
 import EditCategory from './Pages/Manager/EditCategory';
+import WishList from './Pages/Customer/WishList';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path='allProducts' element={<AllProducts/>} />
         <Route path='/viewProduct/:id' element={<ViewProduct/>}/>
         <Route path='/viewCategory/:id' element={<ViewCategory/>}/>
+        <Route path='/wishList' element={<WishList/>} />
         <Route path='/checkout' element={<Checkout />} />
 
 

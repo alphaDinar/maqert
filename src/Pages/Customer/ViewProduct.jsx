@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
-import { useLoader } from "../../main";
+import { useCart, useCartInfo, useCartTrigger, useLoader } from "../../main";
 import { useEffect, useRef, useState } from "react";
 import { icon, iconFont } from "../../External/Design";
 import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
@@ -17,6 +17,9 @@ import { solveRatings } from "../../External/math";
 const ViewProduct = () => {
   const { id } = useParams();
   const { setLoader } = useLoader();
+  const { cart, setCart } = useCart();
+  const { cartInfo } = useCartInfo();
+  const { cartTrigger, setCartTrigger } = useCartTrigger();
   const productSwiper = useRef(null);
   const productSwiperThumb = useRef(null);
   const [product, setProduct] = useState(null);
@@ -36,6 +39,37 @@ const ViewProduct = () => {
 
   const changeSlide = (val) => {
     productSwiper.current.swiper.slideTo(val)
+  }
+
+  const addToCart = (product) => {
+    const itemObj = {
+      pid: product.pid,
+      name: product.name,
+      category: product.category,
+      media: JSON.parse(product.media)[0].url,
+      quantity: 1,
+      price: Number(product.price),
+      total: Number(product.price),
+    }
+
+    const itemExists = cart.find((el) => el.pid === product.pid);
+    if (itemExists) {
+      itemExists.quantity += 1;
+      itemExists.total += Number(product.price);
+      cartInfo.itemCount += 1;
+      cartInfo.total += Number(product.price);
+      localStorage.setItem('cart', JSON.stringify(cart))
+      localStorage.setItem('cartInfo', JSON.stringify(cartInfo))
+    } else {
+      cartInfo.itemCount += 1;
+      cartInfo.total += Number(product.price);
+      const updatedCart = [...cart, itemObj];
+      setCart(updatedCart)
+      localStorage.setItem('cart', JSON.stringify(updatedCart))
+      localStorage.setItem('cartInfo', JSON.stringify(cartInfo))
+    }
+    const updatedTrigger = cartTrigger + 1;
+    setCartTrigger(updatedTrigger)
   }
 
 
@@ -118,7 +152,7 @@ const ViewProduct = () => {
                   ))}
                   <small>({product.ratings.length} verified ratings)</small>
                 </p>
-                <button type="button" onClick={()=>{addToCart(product)}}>Add To Cart{icon('add_shopping_cart')}</button>
+                <button type="button" onClick={() => { addToCart(product) }}>Add To Cart{icon('add_shopping_cart')}</button>
               </header>
 
               <article>
@@ -134,7 +168,7 @@ const ViewProduct = () => {
                     {product.specs.map((el, i) => (
                       <legend key={i}>
                         {icon('arrow_right_alt')}
-                        <small>{el}</small>
+                        <small><b>{el.split(':')[0]}</b> : {el.split(':')[1]} </small>
                       </legend>
                     ))}
                   </p>
@@ -197,7 +231,7 @@ const ViewProduct = () => {
               <hr />
               <p>
                 <span>{icon('payments')} Total</span>
-                <strong>GH₵ {eval(parseInt(product.price) + parseInt(50))}</strong>
+                <strong>GH₵ {eval(parseInt(product.price) + parseInt(50)).toLocaleString()}</strong>
               </p>
             </article>
           </section>

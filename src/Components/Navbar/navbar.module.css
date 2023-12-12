@@ -4,7 +4,13 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: 5px 0;
+  position: sticky;
+  top: 0;
+  min-height: 5vh;
+  z-index: 100;
 }
+
 .navbar .topNav,.navbar .bottomNav{
   display: none;
 }
@@ -388,6 +394,10 @@
   }
 }
 @media all and (max-width:650px){
+  .navbar{
+    position: revert;
+    padding: 0;
+  }
   .navbar .topNav{
     width: 100%;
     display: flex;

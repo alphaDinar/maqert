@@ -22,6 +22,7 @@ import gadget from '../../assets/gadget.jpg'
 import tv from '../../assets/tv.webp'
 import FeaturedBox from "../../Components/FeaturedBox/FeaturedBox";
 import { solveRatings } from "../../External/math";
+import CategoryProducts from "../../Components/CategoryProducts/CategoryProducts";
 
 const Home = () => {
   const sample = 'https://res.cloudinary.com/dvnemzw0z/image/upload/v1697224824/iphone-15_g1evtv.jpg';
@@ -36,6 +37,8 @@ const Home = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
+
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const productsQuery = query(collection(fireStoreDB, 'Products/'), orderBy('timestamp', 'desc'), limit(30));
@@ -55,7 +58,8 @@ const Home = () => {
 
     getDocs(collection(fireStoreDB, 'Categories/'))
       .then((res) => {
-        setCategoryList(res.docs.map((el) => el.data()))
+        setCategoryList(res.docs.map((el) => el.data()));
+        setSelectedCategory(res.docs.map((el) => el.data())[0].name);
       })
 
     AOS.init({
@@ -161,35 +165,12 @@ const Home = () => {
             <small>Discover Our Exclusive Collection: Unveiling the Finest Picks Just for You!.</small>
             <nav>
               {categoryList.map((el) => (
-                <span>{el.name} <sub></sub></span>
+                <span onClick={()=>{setSelectedCategory(el.name)}}>{el.name} <sub style={el.name == selectedCategory ?  {width : '100%'} : { width : '30%'}}></sub></span>
               ))}
             </nav>
           </header>
 
-          <section className={styles.categoryProducts}>
-            {products.map((el) => (
-              <div>
-                <img src={JSON.parse(el.media)[0].url} />
-                <article>
-                  <small>{el.category}</small>
-                  <h3 className="cut">{el.name}</h3>
-                  <span style={{ fontWeight: 600 }}>GH₵ {el.price.toLocaleString()}</span>
-                  <p>
-                    <legend>
-                      {Array(solveRatings(el.ratings)).fill().map((el) => (
-                        iconFont('fa-solid fa-star', 'orange')
-                      ))}
-                    </legend>
-                    <small>({el.ratings.length})</small>
-                  </p>
-                </article>
-                <nav>
-                  <button>{iconFont('fa-regular fa-heart')}</button>
-                  <button>{icon('add_shopping_cart')}</button>
-                </nav>
-              </div>
-            ))}
-          </section>
+          <CategoryProducts props={{selectedCategory, products}} />
         </section>
 
         <section className={styles.offerBox} style={{ display: 'none' }}>
