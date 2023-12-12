@@ -219,7 +219,7 @@ const Navbar = () => {
         {user ?
           <p className={styles.mid}>
             {sidebarTags.map((el, i) => (
-              <Link to={el.linkTo} key={i}>
+              <Link key={i}>
                 <span>
                   {icon(el.iconEl)} <small>{el.label}</small> <sub className='material-symbols-outlined'>chevron_right</sub>
                 </span>

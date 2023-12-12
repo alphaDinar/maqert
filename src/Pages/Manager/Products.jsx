@@ -24,6 +24,7 @@ const Products = () => {
     .catch((error)=>{
       console.log(error)
     })
+    setLoader(false)
   },[])
 
   const deleteProduct =(el)=>{

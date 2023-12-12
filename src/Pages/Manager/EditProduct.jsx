@@ -43,6 +43,7 @@ const EditProduct = () => {
         setCategory(prod.category)
         setBrand(prod.brand)
         setSpecs(prod.specs)
+        setLoader(false)
 
         JSON.parse(prod.media).forEach((el, i) => {
           if (el.url !== 'empty') {
@@ -53,6 +54,8 @@ const EditProduct = () => {
           }
         })
       })
+
+    
   }, [])
 
   const addSpec = () => {

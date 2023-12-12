@@ -98,9 +98,11 @@ const ProductBox = ({ props }) => {
           <div>
             {
               wishList.find((el)=> el === product.pid) ? 
-              <sup onClick={() => { addToWishList(product.pid) }}>{iconFont('fa-solid fa-heart')}</sup> :
-              <sup onClick={() => { addToWishList(product.pid) }}>{iconFont('fa-regular fa-heart')}</sup>
+              <sup className={styles.supLeft} onClick={() => { addToWishList(product.pid) }}>{iconFont('fa-solid fa-heart')}</sup> :
+              <sup className={styles.supLeft} onClick={() => { addToWishList(product.pid) }}>{iconFont('fa-regular fa-heart')}</sup>
             }
+
+            <sup className={styles.supRight}>Buy Now</sup>
 
             <Link to={`/products/${product.category}`} style={{ height: 'auto' }}>
               <small>
@@ -119,7 +121,7 @@ const ProductBox = ({ props }) => {
                 <small>({product.ratings.length})</small>
               </p>
             </article>
-          </div>
+          </div>            
           <button onClick={() => { addToCart(product) }}><span style={{color:'white'}}>Add To Cart</span> {icon('add_shopping_cart')}</button>
         </div>
       ))}

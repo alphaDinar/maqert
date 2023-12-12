@@ -10,7 +10,7 @@
   display: grid;
   gap: 2rem;
   width: 100%;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: 400px 1fr;
 }
 .imageBox{
   display: flex;
@@ -20,7 +20,7 @@
 .imageBox img, .imageBox video{
   width: 350px;
   height: 300px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .subBox button{
@@ -64,8 +64,8 @@
 }
 
 .productSwiper {
-  width: 350px;
-  height: 350px;
+  width: 400px;
+  height: 400px;
 }
 
 .productSwiperThumb {

@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: repeat(5,1fr);
   gap: 1.5rem 0;
+  /* gap: 1rem; */
 }
 
 .product{
@@ -12,7 +13,9 @@
   gap: 0.7rem;
   border-bottom: 1px solid lightgray;
   border-left: 1px solid lightgray;
+  /* background: whitesmoke; */
   position: relative;
+  /* border-radius: 15px; */
 }
 .product div{
   display: flex;
@@ -33,9 +36,15 @@
 
 .product sup{
   top: 0;
-  left: 5px;
   position: absolute;
 }
+.supLeft{
+  left: 5px;
+}
+.supRight{
+  right: 5px;
+}
+
 .product sup i{
   font-size: 1rem;
   cursor: pointer;

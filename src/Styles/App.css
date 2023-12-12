@@ -21,7 +21,7 @@
   display: grid;
   align-items: flex-start;
   gap: 1rem;
-  grid-template-columns: 2.5fr 7.5fr;
+  /* grid-template-columns: 2.5fr 7.5fr; */
 }
 
 .accountPanel main{

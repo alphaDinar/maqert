@@ -3,9 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Customer/Home';
 import Checkout from './Pages/Customer/Checkout';
 import Register from './Pages/Customer/Register';
-import Account from './Pages/Customer/Account/Account';
 import Loader from './Components/Loader/Loader';
-import Orders from './Pages/Customer/Account/Orders';
 import Products from './Pages/Customer/Products';
 import ManagerProducts from './Pages/Manager/Products';
 import AddProduct from './Pages/Manager/AddProduct';
@@ -26,8 +24,6 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/account' element={<Account />} />
-        <Route path='/orders' element={<Orders />} />
         <Route path='/categories' element={<Categories/>} />
         <Route path='/products/:id' element={<Products/>} />
         <Route path='allProducts' element={<AllProducts/>} />

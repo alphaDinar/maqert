@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
-import { EffectFade, Navigation, Pagination } from 'swiper/modules';
+import { EffectFade, Navigation, Pagination,Autoplay } from 'swiper/modules';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 // import { Pagination } from 'swiper/modules';
@@ -19,12 +19,13 @@ import { fireStoreDB } from "../../Firebase/base";
 import { useCart, useCartInfo, useCartTrigger, useLoader } from "../../main";
 import sam from '../../assets/ites.jpg';
 import gadget from '../../assets/gadget.jpg'
+import tv from '../../assets/tv.webp'
 import FeaturedBox from "../../Components/FeaturedBox/FeaturedBox";
 import { solveRatings } from "../../External/math";
 
 const Home = () => {
   const sample = 'https://res.cloudinary.com/dvnemzw0z/image/upload/v1697224824/iphone-15_g1evtv.jpg';
-  const images = [sam, gadget]
+  const images = [sam, gadget, tv]
 
   const navigate = useNavigate();
   const { setLoader } = useLoader();
@@ -111,27 +112,27 @@ const Home = () => {
           pagination={{
             dynamicBullets: true,
           }}
-          modules={[EffectFade, Pagination]}
+          modules={[EffectFade, Pagination,Autoplay]}
           loop={true}
-          autoplay={true}
+          autoplay={{delay : 3500}}
           effect={'fade'}
           className={styles.topSwiper}
         >
-          {images.map((el, i) => (
-            <SwiperSlide key={i} >
-              <section className={styles.topSlide} style={{ backgroundImage: `url(${el})` }}>
-                <Link>
-                  <article>
-                    {icon(headBoxTags[i].iconEl)}
-                    <p>
-                      <span>{headBoxTags[i].top}</span>
-                      <small>{headBoxTags[i].low}</small>
-                    </p>
-                  </article>
-                </Link>
-              </section>
-            </SwiperSlide>
-          ))}
+        {images.map((el, i) => (
+          <SwiperSlide key={i} >
+            <section className={styles.topSlide} style={{ backgroundImage: `url(${el})` }}>
+              <Link to={'/allProducts'}>
+                <article>
+                  {icon(headBoxTags[i].iconEl)}
+                  <p>
+                    <span>{headBoxTags[i].top}</span>
+                    <small>{headBoxTags[i].low}</small>
+                  </p>
+                </article>
+              </Link>
+            </section>
+          </SwiperSlide>
+        ))}
         </Swiper>
 
 
